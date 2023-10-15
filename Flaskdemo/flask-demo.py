@@ -332,4 +332,7 @@ app = Flask(__name__)
 # app.wsgi_app = ProxyFix(app.wsgi_app)
 
 # -------------------
-#
+# Using Flask Extensions
+# https://flask.palletsprojects.com/en/2.3.x/quickstart/#using-flask-extensions
+
+
