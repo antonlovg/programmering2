@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <style>
+      body {
+  background: linear-gradient(to bottom right, #B60F46, #D592FF);
+}
+
+    </style>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>City Picker 1.0</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+
+
+
+  <!-- Navbar start -->
+  
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img src="static/catcop.png" alt="catcop" width="80" /></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#Stad">Stad</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Navbar end -->
+
+
+
+
+  <body class="bg-light-blue bg-purple">
+    {{title}}
+    <h1 class="text-center">City Picker</h1>
+
+    <!-- Form -->
+    
+    <div class="container">
+      <h2>Ange en stad för att få tidinformation</h2>
+      <form id="city-form">
+        <div class="mb-3 mt-3">
+          <label for="city" class="form-label">Stad</label>
+          <input type="text" class="form-control" id="city" name="city" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Hämta tid</button>
+      </form>
+    </div>
+
+    <!-- Form end -->
+    
+    
+    <!-- API-Print -->
+
+    <div class="container">
+      <h2>Tidinformation från API</h2>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <th>Tidzon</th>
+            <td id="timezone"></td>
+          </tr>
+          <tr>
+            <th>Datum</th>
+            <td id="date"></td>
+          </tr>
+          <tr>
+            <th>År</th>
+            <td id="year"></td>
+          </tr>
+          <tr>
+            <th>Månad</th>
+            <td id="month"></td>
+          </tr>
+          <tr>
+            <th>Dag</th>
+            <td id="day"></td>
+          </tr>
+          <tr>
+            <th>Timme</th>
+            <td id="hour"></td>
+          </tr>
+          <tr>
+            <th>Minut</th>
+            <td id="minute"></td>
+          </tr>
+          <tr>
+            <th>Sekund</th>
+            <td id="second"></td>
+          </tr>
+          <tr>
+            <th>Veckodag</th>
+            <td id="day_of_week"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- API-print end -->
+    
+    <hr>
+
+    <!-- Accordion Test -->
+
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Accordion Item #1
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Accordion Item #2
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Accordion Item #3
+          </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <strong>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor et laborum aspernatur. Enim, dignissimos maxime. Voluptates dolores, quasi dignissimos maxime aperiam inventore error repudiandae. Facilis nulla dignissimos vel maxime delectus.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      document.querySelector("#city-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // Förhindra standardformulärskick
+    
+        const cityInput = document.querySelector("#city");
+        const city = cityInput.value;
+    
+        // Skicka användarposten till din Flask-applikation
+        fetch("/get_time", {
+          method: "POST",
+          body: new URLSearchParams({ city: city }),
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Hantera tidinformationen här och uppdatera tabellen
+            const timezone = document.querySelector("#timezone");
+            const date = document.querySelector("#date");
+            const year = document.querySelector("#year");
+            const month = document.querySelector("#month");
+            const day = document.querySelector("#day");
+            const hour = document.querySelector("#hour");
+            const minute = document.querySelector("#minute");
+            const second = document.querySelector("#second");
+            const dayOfWeek = document.querySelector("#day_of_week");
+    
+            // Uppdatera tabellen med tidinformation
+            timezone.textContent = data.timezone;
+            date.textContent = data.date;
+            year.textContent = data.year;
+            month.textContent = data.month;
+            day.textContent = data.day;
+            hour.textContent = data.hour;
+            minute.textContent = data.minute;
+            second.textContent = data.second;
+            dayOfWeek.textContent = data.day_of_week;
+          })
+          .catch(error => {
+            console.error("Fel vid hämtning av tidinformation:", error);
+          });
+      });
+    </script>
+    
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
