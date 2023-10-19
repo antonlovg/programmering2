@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/GIT - Programmering 2.iml" filepath="$PROJECT_DIR$/.idea/GIT - Programmering 2.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/GIT - Programmering2.iml" filepath="$PROJECT_DIR$/.idea/GIT - Programmering2.iml" />
+>>>>>>> 7b52f293f7a93c403042f88dad4e388b2e4dfc94
     </modules>
   </component>
 </project>

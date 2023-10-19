@@ -10,7 +10,7 @@ API_KEY = "P56lgPDrmRuinArO1ubksg==A0OfMd46O71uIjAv"
 
 @app.route("/")
 def index():
-    return render_template("homepage.html", title="Test")
+    return render_template("homepage.html")
 
 @app.route("/get_time", methods=["POST"])
 def get_time():
