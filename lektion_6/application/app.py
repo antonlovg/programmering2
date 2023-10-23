@@ -1,12 +1,14 @@
 # Den här filen innehåller saker som har med Flask-servern att göra, det vill säga endpoints, routing, HTTP-metoder etc.
 # Flask innehåller all funktionalitet för att skapa en server och hantera trafik till och från den servern, men inte funktionalitet
 # för att skicka requests till andra servrar. Till detta använder vi i func.py istället urllib vilket är ett av pythons standardbibliotek.
-
+import ssl
 # Termer: Bibliotek, standardbilbliotek, ramverk och moduler refererar ofta till samma sak, dvs. förbyggd kod som du kan importera.
 # Ett standardbibliotek är ett som levereras som en del av Pyhton, och de är ofta 'native python' el. med andra ord skrivna helt i python
 # Andra bibliotek kan vara skrivna med en annan miljö i bakgrunden, t.ex med C. Dessa bibliotek kan vara plattformsberoende (win, linux, mac osv)
 # medan bibliotek i native python är platformsoberoende och kan användas överallt där bythonkod kan köras. 
 
+import urllib.request
+import json
 from markupsafe import escape
 from application import func
 from flask import Flask, render_template, request
@@ -20,7 +22,20 @@ def index():
     '''Denna funktion körs när man går till servern utan endpoint. 
        På en statisk webbsida skulle detta t.ex motsvara filen index.html'''
 
-    ##### Plats för er kod #####
+    context = ssl._create_unverified_context()
+    ip_loc = "https://1.1.1.1/cdn-cgi/trace"
+    json_data = urllib.request.urlopen(ip_loc, context=context).read()
+
+    ip_data = json_data.split('\n')
+
+    ip = None
+
+    for line in ip_data:
+        key, value = line.split('=')
+        if key == 'ip'
+            ip = value
+
+
 
     # Hämta index.html och uppdatera den med hjälp av Jinja, skicka den sedan till klienten (browsern)
     return render_template('index.html')
@@ -31,9 +46,12 @@ def form():
     '''Denna funktion körs när man går till servern med  endpoint '/form'. 
        På en statisk webbsida skulle detta t.ex kunna motsvara filen mappen /form med filen index.htm'''
 
-    ##### Plats för er kod #####
+    context = ssl._create_unverified_context()
+    data_form_url = "https://date.nager.at/api/v3/AvailableCountries"
+    json_data = urllib.request.urlopen(data_form_url, context=context).read()
+    data_form = json.loads(json_data)
 
-    return render_template('form.html')
+    return render_template('form.html', data_form=data_form)
 
 
 @app.route("/api", methods=["POST"]) 

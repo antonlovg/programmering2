@@ -10,8 +10,13 @@
                     <label for="year">Year:</label><br/>
                     <input type="text" id="year" name="year"><br/>
                     <label for="ccode">Country code:</label><br/>
-                    <input type="text" id="ccode" name="countrycode"><br/>
                     <!-- Lägg till fält här -->
+                    <select class="form-select" id="ccode" name="countrycode" aria-label="Choose a country">
+                        {{ data_form }}
+                        {% for row in data_form %}
+                        <option value="{{row['countryCode']}}">{{row['name']}}</option>
+                        {% endfor %}
+                    </select>
                     <button type="submit" class="btn btn-primary mt-5">Submit</button>
                 </form>
             </div>    
