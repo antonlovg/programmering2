@@ -10,7 +10,6 @@ def index():
     Framsida, ska via IP ta fram användarens loc och visa nya låtar via spotifys API.
     """
 
-
     return render_template('index.html', title="Testar Title")
 
 
@@ -34,6 +33,15 @@ def new():
 
     return render_template('new.html')
 
+
 @app.route("/api")
 def api():
     return render_template('index.html')
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """
+    Hanterar errorkod 404
+    """
+    return render_template('404.html'), 404
