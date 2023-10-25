@@ -1,11 +1,11 @@
 from flask import Flask, render_template
 import ssl
-import anton
+import pandas as pd
+from application import func
+
+
 
 app = Flask(__name__)
-
-CLIENT_ID = f"{anton.client_id}"
-CLIENT_SECRET = f"{anton.client_secret}"
 
 
 @app.route("/")
@@ -14,7 +14,28 @@ def index():
     Framsida, ska via IP ta fram användarens loc och visa nya låtar via spotifys API.
     """
 
-    return render_template('index.html', title="Home")
+    def create_tracks_dataframe(json_data):
+        tracks = json_data.get("tracks")
+        if tracks:
+            df = pd.DataFrame(tracks)
+            return df
+        return None
+
+    token = func.get_token()
+    artist_name = "Jimin"
+    country_code = "US"
+    artist_id = func.search_for_artist(token, artist_name)
+    json_result = func.get_songs_by_artist(token, artist_id, country_code)
+
+    if artist_id is not None:
+        tracks_df = create_tracks_dataframe(json_result)
+
+        if tracks_df is not None:
+
+            df = pd.DataFrame(tracks_df)
+            table_data = df.to_html(columns=["name", "popularity"], classes="table p-5", justify="left")
+
+    return render_template('index.html', title="Home", data=table_data, artist_name=artist_name)
 
 
 @app.route("/recommendations")
@@ -43,7 +64,8 @@ def api():
 
 
 
-    return render_template('index.html')
+
+    return render_template('index.html', title="Home")
 
 
 @app.errorhandler(404)
