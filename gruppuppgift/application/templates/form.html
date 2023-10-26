@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Välj språk</title>
+</head>
+<body>
+    <h1>Välj ett språk</h1>
+    <form method="POST" action="/resultat">
+        <select name="språk">
+            {% for kod, språk in språkdata.items() %}
+            <option value="{{ kod }}">{{ language }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Välj</button>
+    </form>
+</body>
+</html>

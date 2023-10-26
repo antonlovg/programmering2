@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Välj språk</title>
+</head>
+<body>
+    <h1>Välj ett språk</h1>
+    <form method="POST" action="/resultat">
+
+        <!-- Loopar igenom json så vi tar fram alla språk där tex svenska är sv
+        och languages=sv då -->
+        <select name="languages">
+            {% for kod, languages in språkdata.items() %}
+            <option value="{{ kod }}">{{ languages }}</option>
+            {% endfor %}
+        </select>
+        <!-- Sökrutan för search= -->
+         <input type="text" name="search" placeholder="Skriv in din sökning">
+        <button type="submit">Sök</button>
+    </form>
+</body>
+</html>
