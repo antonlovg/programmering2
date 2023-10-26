@@ -3,8 +3,6 @@ import ssl
 import pandas as pd
 from application import func
 
-
-
 app = Flask(__name__)
 
 
@@ -31,7 +29,6 @@ def index():
         tracks_df = create_tracks_dataframe(json_result)
 
         if tracks_df is not None:
-
             df = pd.DataFrame(tracks_df)
             table_data = df.to_html(columns=["name", "popularity"], classes="table p-5", justify="left")
 
@@ -61,10 +58,6 @@ def new():
 
 @app.route("/api")
 def api():
-
-
-
-
     return render_template('index.html', title="Home")
 
 
