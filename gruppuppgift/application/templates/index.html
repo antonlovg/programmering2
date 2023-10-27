@@ -17,6 +17,14 @@
         <!-- Sökrutan för search= -->
          <input type="text" name="search" placeholder="Skriv in din sökning">
         <button type="submit">Sök</button>
+
+        <hr>
+        <h2>Sök via genre</h2>
+        <select name="topic">
+            {% for genre_item in genre_data['genres'] %}
+            <option value="{{ genre_item.name }}">{{ genre_item.name }}</option>
+            {% endfor %}
+        </select>
     </form>
 </body>
 </html>
