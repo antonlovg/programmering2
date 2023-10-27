@@ -2,6 +2,7 @@ import json
 import requests
 from flask import request
 import pandas as pd
+from application import api_key
 
 
 # Läser arg (i vårat fall language_code.json) så som vi lärt oss i programmering 1
@@ -27,7 +28,7 @@ def genre_api():
     # API-token
     headers = {
         "accept": "application/json",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDQxM2VkYmIzYzJkZmRjNDhlZTYwMTI1MmE5MTAyYyIsInN1YiI6IjY1M2I3YTdkNzE5YWViMDBlMTE5MDBhMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.U7y8z2MlqaLM5-AquU2nYecH2KDI_ZJp7b0wDiavbcw"
+        "Authorization": "Bearer " + api_key.movie()
     }
 
     # Hämtar resultat
