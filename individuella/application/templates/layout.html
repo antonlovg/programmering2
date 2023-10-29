@@ -8,7 +8,9 @@
         <link rel="stylesheet" href="/static/css/bootstrap.min.css">
         {% endblock %}
     </head>
+
     <body>
+    <!-- Tillägg till bootstrap -->
     <style>
             body {
                 background-image: url("/static/img/background.jpg");
@@ -20,15 +22,21 @@
             text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Svart outline */
             }
     </style>
+
+    <!-- Header -->
     <div id="header">
         {% block header %}
         {% include "header.html" %}
         {% endblock %}
     </div>
-    <div style="color: #DDE6ED; width:50%; margin-left:auto; margin-right:auto;" id="content">
+
+    <!-- Innehåll -->
+    <div style="color: #DDE6ED; width:43%; margin-left:auto; margin-right:auto;" id="content">
         {% block content %}
         {% endblock %}
     </div>
+
+    <!-- Footer -->
     <div id="footer">
         {% block footer %}
         {% include "footer.html" %}

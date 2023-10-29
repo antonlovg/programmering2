@@ -76,7 +76,7 @@ def get_songs_by_artist(token, artist_id, country_code):
     return json_result
 
 
-def ta_fram_top10(artist_name, country_code):
+def get_top10(artist_name, country_code):
     """
     Här kombinerar vi allt och skapar en pandas-dataframe med information vi fått fram.
     """
@@ -97,6 +97,67 @@ def create_tracks_dataframe(json_data):
     tracks = json_data.get("tracks")
     df = pd.DataFrame(tracks)
     return df
+
+
+def get_recommendations(genre_artist_name, genre):
+    """
+    Sätter ihop delar för att få fram rekommendationer baserat på vilka alternativ man väljer
+    Den ska även ta fram länk till Spotify men också en "preview"-player som finns i HTML5 (https://www.w3schools.com/html/html5_audio.asp).
+    Tog hjälp av stackoverflow för att få till det:
+    https://stackoverflow.com/questions/61913315/format-a-pandas-object-column
+
+    """
+    token = get_token()
+    genre_id = search_for_artist(token, genre_artist_name)
+    genre_url = f"https://api.spotify.com/v1/recommendations?limit=10&seed_artists={genre_id}&seed_genres={genre}"
+    headers = {"Authorization": f"Bearer {token}"}
+
+    result = requests.get(genre_url, headers=headers)
+    json_result = result.json()
+
+    tracks = json_result.get('tracks', [])
+    data_list = []
+    for track in tracks:
+        album = track['album']
+        artists = track['artists']
+        data = {
+            'Artist': artists[0]['name'],
+            'Song': track['name'],
+            'External URL': f'<a href="{album["external_urls"]["spotify"]}" target="_blank">Listen on Spotify</a>',
+            'Preview URL': track.get('preview_url', 'There is no preview available for this song')
+        }
+        data_list.append(data)
+
+    df = pd.DataFrame(data_list)
+
+    df['Preview URL'] = df['Preview URL'].apply(format_preview)
+
+    table_data = df.to_html(classes="table p-5", justify="left", index=False, escape=False, render_links=True)
+
+    return table_data
+
+
+def format_preview(preview_url):
+    if pd.notna(preview_url):
+        return f'<audio controls><source src="{preview_url}" type="audio/mpeg">Your browser does not support the audio element.</audio>'
+    else:
+        return 'There is no preview available for this song :('
+
+
+# Koder för dropdown
+
+def genres_form():
+    """
+    Hämtar alla genres från Spotifys API och returnerar dessa till genres_form då vi ska använda dessa i en loop med Jinja2
+    """
+
+    token = get_token()
+    genres_form_url = "https://api.spotify.com/v1/recommendations/available-genre-seeds"
+    headers = {"Authorization": f"Bearer {token}"}
+    response = requests.get(genres_form_url, headers=headers)
+    genres_form = response.json()
+
+    return genres_form
 
 
 # Hämtar alla country codes då vi vill veta top10 i specifikt land

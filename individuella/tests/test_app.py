@@ -58,11 +58,6 @@ def test_new(client):
     assert response.status_code == 200
 
 
-def test_api(client):
-    response = client.get('/api')
-    assert response.status_code == 200
-
-
 # Om sidan saknas så borde vi få 404, testar för det
 def test_404_error(client):
     response = client.get('/error')

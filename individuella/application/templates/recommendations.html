@@ -1,1 +1,9 @@
 {% extends "layout.html" %}
+{% block content %}
+<br>
+<h1 class="text-outline text-center">Recommendations based on your search</h1>
+<br>
+<h2 class="text-outline text-center">You picked the artist {{genre_artist_name}} together with the genre {{ genre }}</h2>
+<h5 class="text-outline text-center">Here are some artists </h5>
+{{genre_data|safe}}
+{% endblock %}

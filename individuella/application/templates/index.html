@@ -2,7 +2,7 @@
 {% block content %}
 <br>
     <h1 class="text-center text-outline">The Spotify Helper</h1>
-    <hr>
+    <br>
     <h2 class="text-center text-outline" id="search">Top 10 Songs by Artist</h2>
     <h5 class="text-center text-outline">Search for an artist and get the top 10 songs currently from the artist in the country that you pick from the list</h5>
     <br>
@@ -39,8 +39,25 @@
     <div class="row justify-content-center">
         <div class="col-md-4">
             <div class="form-floating">
-
+                <input type="text" class="form-control shadow" id="recommendationArtist" placeholder="" name="recommendationArtist">
+                <label class="text-dark" for="recommendationArtist">Artist</label>
             </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-floating">
+              <select class="form-select shadow" id="formGenres" name="formGenres">
+                {{ genres_form }}
+                {% for genre in genres_form["genres"] %}
+                  <option value="{{ genre }}">{{ genre|capitalize }}</option>
+                {% endfor %}
+              </select>
+              <label for="formGenres">Choose a genre</label>
+            </div>
+        </div>
+
+        <div class="col-md-2 d-flex align-items-center">
+            <button class="btn btn-success shadow" type="submit">Sök</button>
         </div>
     </div>
     </form>

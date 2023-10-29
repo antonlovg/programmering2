@@ -12,8 +12,9 @@ def index():
 
     # Hämtar funktionen från func och skickar det vidare till index.html för att skapa en dropdown med flera länder
     data_form = func.countrycode_form()
+    genres_form = func.genres_form()
 
-    return render_template('index.html', title="Home", data_form=data_form)
+    return render_template('index.html', title="Home", data_form=data_form, genres_form=genres_form)
 
 
 @app.route("/top10", methods=['POST'])
@@ -23,18 +24,21 @@ def top10():
     """
     artist_name = request.form["formArtist"]
     country_code = request.form["countrycode"]
-    artist_data = func.ta_fram_top10(artist_name, country_code)
+    artist_data = func.get_top10(artist_name, country_code)
 
     return render_template('top10.html', data=artist_data, title="Top 10", artist_name=artist_name)
 
 
-@app.route("/recommendations")
+@app.route("/recommendations", methods=['POST'])
 def rec():
     """
     Denna route hämtar rekommenderade låtar via spotifys API.
     """
+    genre_artist_name = request.form["recommendationArtist"]
+    genre = request.form["formGenres"]
+    genre_data = func.get_recommendations(genre_artist_name, genre)
 
-    return render_template('recommendations.html', title="Recommendations")
+    return render_template('recommendations.html', genre_data=genre_data, title="Recommendations", genre_artist_name=genre_artist_name, genre=genre)
 
 
 @app.route("/new")
@@ -44,11 +48,6 @@ def new():
     """
 
     return render_template('new.html', title="New releases")
-
-
-@app.route("/api")
-def api():
-    return render_template('index.html', title="Home")
 
 
 @app.errorhandler(404)
