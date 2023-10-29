@@ -1,7 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
 <br>
-    <h1 class="text-center text-outline" id="search">Search by Spotifys API</h1>
+    <h1 class="text-center text-outline">The Spotify Helper</h1>
+    <hr>
+    <h2 class="text-center text-outline" id="search">Top 10 Songs by Artist</h2>
+    <h5 class="text-center text-outline">Search for an artist and get the top 10 songs currently from the artist in the country that you pick from the list</h5>
     <br>
     <form method="POST" action="/top10">
     <div class="row justify-content-center">
@@ -25,6 +28,20 @@
       <div class="col-md-2 d-flex align-items-center">
         <button class="btn btn-success shadow" type="submit">Sök</button>
       </div>
+    </div>
+    </form>
+    <br>
+    <hr>
+    <br>
+    <h2 class="text-center text-outline" id="recommendations">Recommendations</h2>
+    <h5 class="text-center text-outline">Get recommendations based on the preference that you enter in the following form</h5>
+    <form method="POST" action="/recommendations">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="form-floating">
+
+            </div>
+        </div>
     </div>
     </form>
 {% endblock %}
