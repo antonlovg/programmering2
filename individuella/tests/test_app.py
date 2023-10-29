@@ -1,5 +1,5 @@
 import pytest
-from app import app
+from application.app import app
 
 
 @pytest.fixture
@@ -15,6 +15,9 @@ def test_index_route(client):
 def test_top10_route(client):
     response = client.post('/top10', data={'formArtist': 'Artist', 'countrycode': 'SE'})
     assert response.status_code == 200
+
+def test_top10_route(client):
+    response = client.post('/top10', data={'formArtist': 'NaN', 'countrycode': 'US'})
 
 
 def test_recommendations_route(client):
@@ -33,5 +36,5 @@ def test_api_route(client):
 
 
 def test_404_error(client):
-    response = client.get('/nonexistent_route')
+    response = client.get('/error')
     assert response.status_code == 404
