@@ -5,5 +5,14 @@
 <br>
 <h2 class="text-outline text-center">You picked the artist {{genre_artist_name}} together with the genre {{ genre }}</h2>
 <h5 class="text-outline text-center">Here are some artists </h5>
-{{genre_data|safe}}
+<hr>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm">
+      <div class="text-left text-light p-3 mb-3" style="background-color: rgba(0, 0, 0, 0.35);">
+          {{genre_data|safe}}
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

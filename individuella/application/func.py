@@ -123,8 +123,8 @@ def get_recommendations(genre_artist_name, genre):
         data = {
             'Artist': artists[0]['name'],
             'Song': track['name'],
-            'External URL': f'<a href="{album["external_urls"]["spotify"]}" target="_blank">Listen on Spotify</a>',
-            'Preview URL': track.get('preview_url', 'There is no preview available for this song')
+            'External URL': f'<a href="{album["external_urls"]["spotify"]}" class="btn btn-dark" target="_blank">Listen on Spotify</a>',
+            'Preview URL': track.get('preview_url', '')
         }
         data_list.append(data)
 
@@ -132,19 +132,23 @@ def get_recommendations(genre_artist_name, genre):
 
     df['Preview URL'] = df['Preview URL'].apply(format_preview)
 
-    table_data = df.to_html(classes="table p-5", justify="left", index=False, escape=False, render_links=True)
+    # Tar bort border från pandas med replace, tack till: https://stackoverflow.com/questions/30531374/remove-border-from-html-table-created-via-pandas
+    table_data = df.to_html(classes="custom-table text-outline", justify="left", index=False, escape=False, render_links=True).replace('border="1"','border="0"')
 
     return table_data
 
 
 def format_preview(preview_url):
+    """
+    Skapar en player då vi har en länk till mp3 i pandas under get_recommendations() samt felhantering ifall preview saknas
+    """
     if pd.notna(preview_url):
         return f'<audio controls><source src="{preview_url}" type="audio/mpeg">Your browser does not support the audio element.</audio>'
     else:
         return 'There is no preview available for this song :('
 
 
-# Koder för dropdown
+# -- Koder för dropdown -- #
 
 def genres_form():
     """
@@ -160,7 +164,6 @@ def genres_form():
     return genres_form
 
 
-# Hämtar alla country codes då vi vill veta top10 i specifikt land
 def countrycode_form():
     """
     Hämtar alla countrycodes och returnerar dessa till data_form som vi sedan loopar i index.html med Jinja2

@@ -32,7 +32,7 @@ def top10():
 @app.route("/recommendations", methods=['POST'])
 def rec():
     """
-    Denna route hämtar rekommenderade låtar via spotifys API.
+    Denna route hämtar rekommenderade låtar via spotifys API, låter dig även lyssna på en preview (om det finns).
     """
     genre_artist_name = request.form["recommendationArtist"]
     genre = request.form["formGenres"]
