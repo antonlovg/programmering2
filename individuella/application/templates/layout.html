@@ -8,36 +8,27 @@
         <link rel="stylesheet" href="/static/css/bootstrap.min.css">
         {% endblock %}
     </head>
-
     <body>
     <style>
             body {
-                background: #121212;
+                background-image: url("/static/img/background.jpg");
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+                    .text-outline {
+            color: white; /* Vit text */
+            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black; /* Svart outline */
             }
     </style>
-
     <div id="header">
         {% block header %}
         {% include "header.html" %}
         {% endblock %}
     </div>
-
     <div style="color: #DDE6ED; width:50%; margin-left:auto; margin-right:auto;" id="content">
         {% block content %}
-
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras cursus euismod malesuada. Vivamus nec tortor ut nulla placerat sollicitudin et id dui. Phasellus lobortis molestie metus, eu condimentum lorem ultrices sit amet. Sed tempor in ligula a rhoncus. Nullam purus nibh, gravida sed magna vel, efficitur pretium justo. Mauris a nisi sollicitudin, pretium mi at, suscipit leo. Nulla a auctor felis. Mauris neque mi, gravida in ex sit amet, suscipit ullamcorper felis. Nam convallis elit et velit faucibus, non elementum dolor bibendum.
-
-Morbi eget nisl vel est congue mollis ac sed dui. Vivamus eget neque tincidunt sapien maximus volutpat et nec ex. Cras ultricies eget odio id elementum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis facilisis purus eget tortor scelerisque vehicula. Praesent euismod nisl odio, vitae gravida risus viverra ac. Curabitur eget tincidunt metus. Curabitur tellus ante, interdum at consequat sed, viverra nec velit. Pellentesque a risus eget magna euismod suscipit at et augue. Fusce sed orci vel mauris luctus efficitur et sed purus. Curabitur porttitor justo at tempus efficitur. Suspendisse auctor ornare risus, nec tristique felis tristique vitae.
-
-Nulla eu nunc erat. Ut eu est nunc. Ut pretium consectetur lorem. Nullam quis enim ac magna malesuada eleifend. Nunc volutpat accumsan felis, non congue nunc pretium et. Curabitur ut ornare dui. Phasellus neque felis, porttitor a eros eget, molestie sagittis nibh. Fusce in commodo mi. Phasellus ligula enim, venenatis eget lectus ac, placerat pellentesque lacus. Ut consectetur quam ut cursus elementum.
-
-Proin id augue mattis, porttitor risus nec, maximus risus. Nullam at imperdiet elit. Duis maximus interdum convallis. Donec a dapibus leo, ac sodales urna. Proin nec nisi dui. Nulla rutrum purus dolor, eu sodales eros gravida a. Suspendisse tempus orci ut fringilla pellentesque.
-
-Nullam scelerisque, odio eu consequat ultrices, ante tellus semper elit, at tempor lorem sem sed tortor. Integer gravida libero eleifend faucibus scelerisque. Suspendisse a consectetur dolor. Duis dictum neque magna, eu tincidunt nisl molestie at. In posuere urna id ligula ultrices condimentum. Nunc facilisis, nibh vitae tempor ultrices, eros sem mollis augue, eget commodo orci est in nisi. Nunc consectetur vitae magna in rutrum. In ullamcorper quam eu sapien eleifend pellentesque. Proin sed lectus mi.
         {% endblock %}
     </div>
-
     <div id="footer">
         {% block footer %}
         {% include "footer.html" %}

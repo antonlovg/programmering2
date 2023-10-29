@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block content %}
+<br>
+<h1 class="text-outline text-center">Top 10 songs by: {{artist_name}}</h1>
+<br>
+{{data|safe}}
+{% endblock %}

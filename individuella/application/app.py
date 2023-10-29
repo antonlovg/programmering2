@@ -1,6 +1,4 @@
-from flask import Flask, render_template
-import ssl
-import pandas as pd
+from flask import Flask, render_template, request
 from application import func
 
 app = Flask(__name__)
@@ -9,30 +7,25 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     """
-    Framsida, ska via IP ta fram användarens loc och visa nya låtar via spotifys API.
+    Framsida, ska också via IP ta fram användarens loc och visa nya låtar via spotifys API.
     """
 
-    def create_tracks_dataframe(json_data):
-        tracks = json_data.get("tracks")
-        if tracks:
-            df = pd.DataFrame(tracks)
-            return df
-        return None
+    # Hämtar funktionen från func och skickar det vidare till index.html för att skapa en dropdown med flera länder
+    data_form = func.countrycode_form()
 
-    token = func.get_token()
-    artist_name = "Jimin"
-    country_code = "US"
-    artist_id = func.search_for_artist(token, artist_name)
-    json_result = func.get_songs_by_artist(token, artist_id, country_code)
+    return render_template('index.html', title="Home", data_form=data_form)
 
-    if artist_id is not None:
-        tracks_df = create_tracks_dataframe(json_result)
 
-        if tracks_df is not None:
-            df = pd.DataFrame(tracks_df)
-            table_data = df.to_html(columns=["name", "popularity"], classes="table p-5", justify="left")
+@app.route("/top10", methods=['POST'])
+def top10():
+    """
+    Listar en artists top10 låtar just nu
+    """
+    artist_name = request.form["formArtist"]
+    country_code = request.form["countrycode"]
+    artist_data = func.ta_fram_top10(artist_name, country_code)
 
-    return render_template('index.html', title="Home", data=table_data, artist_name=artist_name)
+    return render_template('top10.html', data=artist_data, title="Top 10", artist_name=artist_name)
 
 
 @app.route("/recommendations")
@@ -41,7 +34,6 @@ def rec():
     Denna route hämtar rekommenderade låtar via spotifys API.
     """
 
-    context = ssl._create_unverified_context()
     return render_template('recommendations.html', title="Recommendations")
 
 
@@ -50,8 +42,6 @@ def new():
     """
     Denna route hämtar nya album via spotifys API.
     """
-
-    context = ssl._create_unverified_context()
 
     return render_template('new.html', title="New releases")
 

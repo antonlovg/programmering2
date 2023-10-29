@@ -1,7 +1,30 @@
 {% extends "layout.html" %}
 {% block content %}
-<hr>
-<h1>Top 10 songs by: {{artist_name}}</h1>
-{{data|safe}}
-
+<br>
+    <h1 class="text-center text-outline" id="search">Search by Spotifys API</h1>
+    <br>
+    <form method="POST" action="/top10">
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input type="text" class="form-control shadow" id="formArtist" placeholder="" name="formArtist">
+          <label class="text-dark" for="formArtist">Artist</label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating">
+          <select class="form-select shadow" id="formCC" name="countrycode">
+            {{ data_form }}
+            {% for row in data_form %}
+              <option value="{{ row['countryCode'] }}">{{ row['name'] }}</option>
+            {% endfor %}
+          </select>
+          <label for="formCC">Choose a country</label>
+        </div>
+      </div>
+      <div class="col-md-2 d-flex align-items-center">
+        <button class="btn btn-success shadow" type="submit">Sök</button>
+      </div>
+    </div>
+    </form>
 {% endblock %}
