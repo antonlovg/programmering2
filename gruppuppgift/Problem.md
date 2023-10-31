@@ -15,3 +15,7 @@ Så länkar url direkt till hemsidan för api och det blir helt fel.
 ### Fjärde
 Att kombinera två APIer när de postar olika värden, men löste det genom att kolla i POST i firefox för att se hur de postades samt ändrade namn på den nya APIn (film-genres) för att posta den som subject istället då books hanterar det så. 
 
+### Femte
+Det vi hade problem med tillsammans var att kombinera allt arbete vi gjort då vi bland annat slutade att få resultat
+från sökmetoden genres men det löste vi genom att den inte hämtade languages då som krävs enligt API.
+
