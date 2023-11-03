@@ -33,10 +33,10 @@ def json_url_to_html_table(data_url, columns=None):
         # Skapa en Pandas DataFrame med innehållet i vår dictionary.
         # Om vi skickade med en lista med kolumnnamn så returnera endast dem som en HTML-tabell, annars tar vi med alla existerande kolumner
         df = pd.DataFrame(data)
-        if columns==None:
-            table_data = df.to_html(classes="table p-5", justify="left")    
+        if columns == None:
+            table_data = df.to_html(classes="table p-5", justify="left")
         else:
-            table_data = df.to_html(columns=columns,classes="table p-5", justify="left")
+            table_data = df.to_html(columns=columns, classes="table p-5", justify="left")
 
         # Returnera HTML-tabellen till app.py där ifrån funktionen ropades på
         return table_data
@@ -45,7 +45,6 @@ def json_url_to_html_table(data_url, columns=None):
     # Här skulle man kunna hantera specifika Exception, men för nu så plockar vi dem alla.
     except Exception as err:
         return err
-
 
 
 # Samma funktion som ovan (json_url_to_html_table) men för XML-data
@@ -65,10 +64,10 @@ def xml_url_to_html_table(data_url, xpath="", columns=None):
         # Skapa en DataFrame direkt från XML med funktionen read_xml() i Pandas.
         # Om vi skickade med en lista med kolumnnamn så returnera endast dem som en HTML-tabell, annars tar vi med alla existerande kolumner
         df = pd.read_xml(xml, xpath=xpath)
-        if columns==None:
-            table_data = df.to_html(classes="table p-5", justify="left")    
+        if columns == None:
+            table_data = df.to_html(classes="table p-5", justify="left")
         else:
-            table_data = df.to_html(columns=columns,classes="table p-5", justify="left")
+            table_data = df.to_html(columns=columns, classes="table p-5", justify="left")
 
         # Returnera HTML-tabellen till app.py där ifrån funktionen ropades på
         return table_data

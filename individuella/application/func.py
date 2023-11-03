@@ -36,7 +36,7 @@ def get_token():
     return token
 
 
-def search_for_artist(token, artist_name):
+def search_for_id(token, artist_name):
     """
     Då artister inte sparas i klartext behöver vi ta fram ID för den artist vi söker fram och spara ID:t
     Spotify har en search-funktion där man kan söka efter items, och vi är just nu bara intresserade av artist-id
@@ -82,7 +82,7 @@ def get_top10(artist_name, country_code):
     """
 
     token = get_token()
-    artist_id = search_for_artist(token, artist_name)
+    artist_id = search_for_id(token, artist_name)
     json_result = get_songs_by_artist(token, artist_id, country_code)
 
     tracks_df = create_tracks_dataframe(json_result)
@@ -108,7 +108,7 @@ def get_recommendations(genre_artist_name, genre):
 
     """
     token = get_token()
-    genre_id = search_for_artist(token, genre_artist_name)
+    genre_id = search_for_id(token, genre_artist_name)
     genre_url = f"https://api.spotify.com/v1/recommendations?limit=10&seed_artists={genre_id}&seed_genres={genre}"
     headers = {"Authorization": f"Bearer {token}"}
 
@@ -116,6 +116,8 @@ def get_recommendations(genre_artist_name, genre):
     json_result = result.json()
 
     tracks = json_result.get('tracks', [])
+
+
     data_list = []
     for track in tracks:
         album = track['album']
@@ -152,7 +154,7 @@ def format_preview(preview_url):
 
 def genres_form():
     """
-    Hämtar alla genres från Spotifys API och returnerar dessa till genres_form då vi ska använda dessa i en loop med Jinja2
+    Hämtar alla genres från Spotifys API och returnerar dessa till genres_form då vi ska använda dessa i en dropdown med Jinja2
     """
 
     token = get_token()
@@ -166,7 +168,7 @@ def genres_form():
 
 def countrycode_form():
     """
-    Hämtar alla countrycodes och returnerar dessa till data_form som vi sedan loopar i index.html med Jinja2
+    Likt genres_form, hämtar alla countrycodes och returnerar dessa till data_form som vi sedan loopar i index.html med Jinja2
     """
     context = ssl._create_unverified_context()
     data_form_url = "https://date.nager.at/api/v3/AvailableCountries"
