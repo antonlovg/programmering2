@@ -30,6 +30,7 @@ def get_token():
         "Content-Type": "application/x-www-form-urlencoded"
     }
     data = {"grant_type": "client_credentials"}
+
     result = requests.post(url, headers=headers, data=data)
     json_result = result.json()
     token = json_result["access_token"]
@@ -39,8 +40,8 @@ def get_token():
 def search_for_id(token, artist_name):
     """
     Då artister inte sparas i klartext behöver vi ta fram ID för den artist vi söker fram och spara ID:t
-    Spotify har en search-funktion där man kan söka efter items, och vi är just nu bara intresserade av artist-id
-    Arg vi hämtar är artist_name som skrivs i formulär under index.html samt token från get_token()
+    Spotify har en search-funktion där man kan söka efter items, och vi är just nu bara intresserade av artist-id.
+    Arg vi hämtar är artist_name som användaren skriver i formulär under index.html samt token från get_token()
     https://developer.spotify.com/documentation/web-api/reference/search
     """
 
@@ -51,14 +52,16 @@ def search_for_id(token, artist_name):
         "type": "artist",
         "limit": 1
     }
+
     result = requests.get(url, headers=headers, params=params)
 
     json_result = result.json()
     artists = json_result.get("artists")
-
     items = artists.get("items")
 
-    # Returnera det första artist-ID:et som en sträng
+    if not items:
+        return None
+
     return items[0]['id']
 
 
@@ -82,21 +85,20 @@ def get_top10(artist_name, country_code):
     """
 
     token = get_token()
+    # Ersätter namnet på artisten (genre_artist_name) med id istället med hjälp av funktionen search_for_id
     artist_id = search_for_id(token, artist_name)
     json_result = get_songs_by_artist(token, artist_id, country_code)
 
-    tracks_df = create_tracks_dataframe(json_result)
+    tracks = json_result.get("tracks")
+    df = pd.DataFrame(tracks)
 
-    df = pd.DataFrame(tracks_df)
-    table_data = df.to_html(columns=["name", "popularity"], classes="table p-5", justify="left")
+    if not tracks:
+        return None
+
+    table_data = df.to_html(columns=["name", "popularity"], classes="custom-table text-outline", justify="left",
+                            index=False, escape=False).replace('border="1"', 'border="0"')
 
     return table_data
-
-
-def create_tracks_dataframe(json_data):
-    tracks = json_data.get("tracks")
-    df = pd.DataFrame(tracks)
-    return df
 
 
 def get_recommendations(genre_artist_name, genre):
@@ -108,15 +110,15 @@ def get_recommendations(genre_artist_name, genre):
 
     """
     token = get_token()
-    genre_id = search_for_id(token, genre_artist_name)
-    genre_url = f"https://api.spotify.com/v1/recommendations?limit=10&seed_artists={genre_id}&seed_genres={genre}"
+    # Ersätter namnet på artisten (genre_artist_name) med id istället med hjälp av funktionen search_for_id
+    artist_id = search_for_id(token, genre_artist_name)
+    genre_url = f"https://api.spotify.com/v1/recommendations?limit=10&seed_artists={artist_id}&seed_genres={genre}"
     headers = {"Authorization": f"Bearer {token}"}
 
     result = requests.get(genre_url, headers=headers)
     json_result = result.json()
 
     tracks = json_result.get('tracks', [])
-
 
     data_list = []
     for track in tracks:
@@ -134,8 +136,9 @@ def get_recommendations(genre_artist_name, genre):
 
     df['Preview URL'] = df['Preview URL'].apply(format_preview)
 
-    # Tar bort border från pandas med replace, tack till: https://stackoverflow.com/questions/30531374/remove-border-from-html-table-created-via-pandas
-    table_data = df.to_html(classes="custom-table text-outline", justify="left", index=False, escape=False, render_links=True).replace('border="1"','border="0"')
+    # Tar bort border från pandas med replace med hjälp av: https://stackoverflow.com/questions/30531374/remove-border-from-html-table-created-via-pandas
+    table_data = df.to_html(classes="custom-table text-outline", justify="left", index=False, escape=False,
+                            render_links=True).replace('border="1"', 'border="0"')
 
     return table_data
 
@@ -150,7 +153,7 @@ def format_preview(preview_url):
         return 'There is no preview available for this song :('
 
 
-# -- Koder för dropdown -- #
+# -- Koder för dropdowns -- #
 
 def genres_form():
     """
@@ -176,3 +179,8 @@ def countrycode_form():
     data_form = json.loads(json_data)
 
     return data_form
+
+
+# -- Error -- #
+def error():
+    return error

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+    <meta http-equiv="Refresh" content="5;url=/">
+    <br>
+    <br>
+    <h1 class="text-outline text-center">Could not find the page you were looking for</h1>
+    <br>
+    <div id="countdown" class="text-center">
+        <p id="countdown-text">Sending you back in <span id="countdown-number">5</span> seconds</p>
+        <p>If it's not sending you back, <a href="/">click here</a></p>
+    </div>
+    <br>
+
+    <script>
+        // JavaScript for the countdown
+        var countdown = 6; // Start countdown from 5 seconds
+
+        function updateCountdown() {
+            var countdownNumber = document.getElementById("countdown-number");
+
+            if (countdown > 0) {
+                countdown--;
+                countdownNumber.textContent = countdown;
+                setTimeout(updateCountdown, 1000); // Update every 1 second
+            } else {
+                // Redirect after the countdown is complete
+                window.location.href = "/";
+            }
+        }
+
+        updateCountdown(); // Start the countdown
+    </script>
+{% endblock %}
